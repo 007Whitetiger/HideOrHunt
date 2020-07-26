@@ -6,7 +6,7 @@ authors: [007_whitetiger]
 description: HideOrHunt plugin
 
 commands:
-  tribalwars:
+  hideorhunt:
     aliases:
       - hoh
       - HideOrHunt

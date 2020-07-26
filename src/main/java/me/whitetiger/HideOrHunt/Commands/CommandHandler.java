@@ -5,7 +5,9 @@ Please create your own code or ask me for permission at the email above
 --------------------------------------------------------------------------------------------------------------------- */
 package me.whitetiger.HideOrHunt.Commands;
 
+import me.whitetiger.HideOrHunt.Commands.Executors.Freeze;
 import me.whitetiger.HideOrHunt.HideOrHunt;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -21,6 +23,17 @@ public class CommandHandler implements CommandExecutor {
     }
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        return false;
+        switch (args[0].toLowerCase()) {
+            case "pause":
+                Freeze.freeze(sender);
+                break;
+            case "continue":
+                Freeze.unFreeze(sender);
+                break;
+            default:
+                sender.sendMessage("Not DONE");
+                break;
+        }
+        return true;
     }
 }

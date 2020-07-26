@@ -17,10 +17,27 @@ public class GameManager {
     public HashMap<Player, HOHPlayer> players = new HashMap<>();
     public GameState gameState;
 
-    public GameManager() { }
+    public GameManager() {
+        this.gameState = GameState.ACTIVE;
+    }
 
     public HashMap<Player, HOHPlayer> getPlayers() {
         return players;
+    }
+
+    public GameState getGameState() {
+        return gameState;
+    }
+
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
+
+    public HOHPlayer getPlayer(Player p) {
+        if (players.containsKey(p)) {
+            return players.get(p);
+        }
+        return null;
     }
 
     public int teamAmount() {
@@ -45,4 +62,5 @@ public class GameManager {
         }
         return null;
     }
+
 }

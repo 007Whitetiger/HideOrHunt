@@ -36,7 +36,7 @@ public class BlockBreakListener implements Listener {
 
         HOHPlayer hohPlayer = plugin.getManager().getByAnchorLocation(e.getBlock());
         if (hohPlayer.getBukkitPlayer().equals(e.getPlayer())) {
-            Title title = new Title(Utils.chat("&cYou can't destroy your own beacon!"));
+            Title title = new Title(Utils.chat("&cDon't!"), Utils.chat("&cYou can't break your own anchor!"));
             e.getPlayer().sendTitle(title);
             return;
         }
