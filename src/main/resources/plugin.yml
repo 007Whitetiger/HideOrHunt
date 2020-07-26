@@ -1,0 +1,14 @@
+name: HideOrHunt
+version: ${project.version}
+main: me.whitetiger.HideOrHunt.HideOrHunt
+api-version: 1.16
+authors: [007_whitetiger]
+description: HideOrHunt plugin
+
+commands:
+  tribalwars:
+    aliases:
+      - hoh
+      - HideOrHunt
+      - HoH
+      - HOH
