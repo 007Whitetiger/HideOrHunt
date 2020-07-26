@@ -1,6 +1,7 @@
 package me.whitetiger.HideOrHunt;
 
 import me.whitetiger.HideOrHunt.Game.GameManager;
+import me.whitetiger.HideOrHunt.Listeners.BlockBreakListener;
 import me.whitetiger.HideOrHunt.Listeners.BlockPlaceListener;
 import me.whitetiger.HideOrHunt.Listeners.ChatListener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -22,6 +23,7 @@ public final class HideOrHunt extends JavaPlugin {
     public void registerEvents() {
         new BlockPlaceListener(this);
         new ChatListener(this);
+        new BlockBreakListener(this);
     }
 
     public GameManager getManager() {

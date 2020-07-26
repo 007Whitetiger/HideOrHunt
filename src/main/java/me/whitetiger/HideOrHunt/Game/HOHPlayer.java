@@ -5,15 +5,20 @@ Please create your own code or ask me for permission at the email above
 --------------------------------------------------------------------------------------------------------------------- */
 package me.whitetiger.HideOrHunt.Game;
 
+import me.whitetiger.HideOrHunt.Utils.Utils;
+import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 public class HOHPlayer {
 
     public Player bukkitPlayer;
+    public Block anchor;
     public Boolean teamAlive;
 
-    public HOHPlayer(Player p) {
+    public HOHPlayer(Player p, Block anchor) {
         this.bukkitPlayer = p;
+        this.anchor = anchor;
         this.teamAlive = false;
     }
 
@@ -29,4 +34,16 @@ public class HOHPlayer {
         return bukkitPlayer;
     }
 
+    public Block getAnchor() {
+        return anchor;
+    }
+
+    public Location getAnchorLocation() {
+        return anchor.getLocation();
+    }
+
+    public void kill(Player attacker) {
+        this.teamAlive = false;
+        bukkitPlayer.sendTitle(Utils.chat("&6You DIED"), "You were killed by " + attacker.getName());
+    }
 }

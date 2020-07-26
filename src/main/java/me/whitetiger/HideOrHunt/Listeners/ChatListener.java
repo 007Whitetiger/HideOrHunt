@@ -6,6 +6,7 @@ Please create your own code or ask me for permission at the email above
 package me.whitetiger.HideOrHunt.Listeners;
 
 import me.whitetiger.HideOrHunt.HideOrHunt;
+import me.whitetiger.HideOrHunt.Utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
@@ -22,6 +23,6 @@ public class ChatListener implements Listener {
 
     @EventHandler
     public void onChatMessage(AsyncPlayerChatEvent e) {
-        e.setFormat(e.getPlayer().getDisplayName() + ChatColor.RESET + ": " + e.getMessage());
+        e.setFormat(e.getPlayer().getDisplayName() + ChatColor.RESET + ": " + Utils.chat(e.getMessage()));
     }
 }

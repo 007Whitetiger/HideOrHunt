@@ -8,6 +8,7 @@ package me.whitetiger.HideOrHunt.Game;
 import me.whitetiger.HideOrHunt.GameState;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
+import org.bukkit.block.Block;
 
 import java.util.HashMap;
 
@@ -26,20 +27,22 @@ public class GameManager {
         return players.size();
     }
 
-    public void addPlayers(Server server) {
-        for (Object pObject : server.getOnlinePlayers().toArray()) {
-            Player p = (Player) pObject;
-            this.addPlayer(p);
-        }
-        this.gameState = GameState.WAITING;
-    }
 
-    public void addPlayer(Player p) {
-        HOHPlayer hohPlayer = new HOHPlayer(p);
+    public void addPlayer(Player p, Block anchor) {
+        HOHPlayer hohPlayer = new HOHPlayer(p, anchor);
         this.players.put(p, hohPlayer);
     }
 
     public Boolean inGame(Player p) {
         return players.containsKey(p);
+    }
+
+    public HOHPlayer getByAnchorLocation(Block anchor) {
+        for (HOHPlayer player : players.values()) {
+            if (anchor.getLocation().getX() == player.getAnchorLocation().getX() & anchor.getLocation().getY() == player.getAnchorLocation().getY() & anchor.getLocation().getZ() == player.getAnchorLocation().getZ()) {
+                return player;
+            }
+        }
+        return null;
     }
 }
