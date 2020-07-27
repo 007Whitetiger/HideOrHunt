@@ -31,7 +31,7 @@ public class BlockBreakListener implements Listener {
 
         if (!Objects.requireNonNull(e.getBlock()).getType().equals(Material.RESPAWN_ANCHOR)) return;
 
-        HOHPlayer hohPlayer = plugin.getManager().getByAnchorLocation(e.getBlock());
+        HOHPlayer hohPlayer = plugin.getGameManager().getByAnchorLocation(e.getBlock());
         if (hohPlayer == null) return;
 
         if (hohPlayer.getBukkitPlayer().equals(e.getPlayer())) {
@@ -52,7 +52,7 @@ public class BlockBreakListener implements Listener {
     public void onBreak(BlockBreakEvent e) {
         if (!Objects.requireNonNull(e.getBlock()).getType().equals(Material.RESPAWN_ANCHOR)) return;
 
-        HOHPlayer hohPlayer = plugin.getManager().getByAnchorLocation(e.getBlock());
+        HOHPlayer hohPlayer = plugin.getGameManager().getByAnchorLocation(e.getBlock());
         if (hohPlayer == null) return;
 
         if (hohPlayer.getBukkitPlayer().equals(e.getPlayer())) {

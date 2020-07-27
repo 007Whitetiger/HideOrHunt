@@ -5,7 +5,6 @@ Please create your own code or ask me for permission at the email above
 --------------------------------------------------------------------------------------------------------------------- */
 package me.whitetiger.HideOrHunt.Listeners;
 
-import me.whitetiger.HideOrHunt.Game.GameManager;
 import me.whitetiger.HideOrHunt.Game.HOHPlayer;
 import me.whitetiger.HideOrHunt.HideOrHunt;
 import me.whitetiger.HideOrHunt.Utils.Utils;
@@ -26,7 +25,7 @@ public class ChatListener implements Listener {
 
     @EventHandler
     public void onChatMessage(AsyncPlayerChatEvent e) {
-        HOHPlayer hohPlayer = plugin.getManager().getPlayer(e.getPlayer());
+        HOHPlayer hohPlayer = plugin.getGameManager().getPlayer(e.getPlayer());
         if (!(hohPlayer == null)) {
             e.setFormat(Utils.chat("&6Team &f") + hohPlayer.getTeamNumber() + " " + e.getPlayer().getDisplayName() + ChatColor.RESET + ": " + Utils.chat(e.getMessage()));
         } else {

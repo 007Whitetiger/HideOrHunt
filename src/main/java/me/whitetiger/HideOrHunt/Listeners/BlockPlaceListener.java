@@ -32,7 +32,7 @@ public class BlockPlaceListener implements Listener {
 
         if (e.getBlock().getType().equals(Material.RESPAWN_ANCHOR)) {
             if (!(p.getWorld().getEnvironment() == World.Environment.NETHER)) return;
-            if (plugin.getManager().inGame(p)) {
+            if (plugin.getGameManager().inGame(p)) {
                 e.setCancelled(true);
                 p.sendMessage(Constants.alreadyPlaced);
             } else {

@@ -24,7 +24,7 @@ public class RespawnListener implements Listener {
 
     public RespawnListener(HideOrHunt plugin) {
         this.plugin = plugin;
-        this.manager = plugin.getManager();
+        this.manager = plugin.getGameManager();
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 

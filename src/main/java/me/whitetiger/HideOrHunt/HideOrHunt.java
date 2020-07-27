@@ -1,9 +1,7 @@
 package me.whitetiger.HideOrHunt;
 
-import me.whitetiger.HideOrHunt.Commands.CommandHandler;
 import me.whitetiger.HideOrHunt.Game.GameManager;
 import me.whitetiger.HideOrHunt.Listeners.*;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class HideOrHunt extends JavaPlugin {
@@ -21,7 +19,7 @@ public final class HideOrHunt extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+
     }
 
     public void registerEvents() {
@@ -32,7 +30,7 @@ public final class HideOrHunt extends JavaPlugin {
         new DeathListener(this);
     }
 
-    public GameManager getManager() {
+    public GameManager getGameManager() {
         return manager;
     }
 }

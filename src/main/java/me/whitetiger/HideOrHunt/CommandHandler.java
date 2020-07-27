@@ -3,10 +3,10 @@ Copyright (c) 2020 007Whitetiger (Stijn Te Baerts) -- developer.whitetiger@gmail
 This file and all other files associated with this file are owned by me (Stijn Te Baerts).
 Please create your own code or ask me for permission at the email above
 --------------------------------------------------------------------------------------------------------------------- */
-package me.whitetiger.HideOrHunt.Commands;
+package me.whitetiger.HideOrHunt;
 
-import me.whitetiger.HideOrHunt.Commands.Executors.Freeze;
-import me.whitetiger.HideOrHunt.Commands.Executors.StopCommands;
+import me.whitetiger.HideOrHunt.Commands.Freeze;
+import me.whitetiger.HideOrHunt.Commands.StopCommands;
 import me.whitetiger.HideOrHunt.HideOrHunt;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

@@ -16,7 +16,7 @@ public class HOHPlayer {
     public Player bukkitPlayer;
     public Block anchor;
     public Boolean teamAlive;
-    public int teamNumber = HideOrHunt.INSTANCE.getManager().teamAmount() + 1;
+    public int teamNumber = HideOrHunt.INSTANCE.getGameManager().teamAmount() + 1;
 
     public HOHPlayer(Player p, Block anchor) {
         this.bukkitPlayer = p;
@@ -57,7 +57,7 @@ public class HOHPlayer {
         bukkitPlayer.sendTitle(Utils.chat("&6You DIED"), "You were killed by " + name);
     }
     public void finalKill() {
-        GameManager gameManager = HideOrHunt.INSTANCE.getManager();
+        GameManager gameManager = HideOrHunt.INSTANCE.getGameManager();
         gameManager.removePlayer(bukkitPlayer);
     }
 }

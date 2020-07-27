@@ -30,7 +30,7 @@ public class DeathListener implements Listener {
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e) {
         Player p = e.getEntity();
-        HOHPlayer hohPlayer = plugin.getManager().getPlayer(p);
+        HOHPlayer hohPlayer = plugin.getGameManager().getPlayer(p);
         if (!(hohPlayer == null)) {
             if (!hohPlayer.isFinal()) {
                 Block anchor = hohPlayer.getAnchor();
@@ -51,7 +51,7 @@ public class DeathListener implements Listener {
                 e.setDeathSound(Sound.ENTITY_ENDER_DRAGON_GROWL);
                 e.setDeathSoundVolume(100);
             }
-            plugin.getManager().winCheck();
+            plugin.getGameManager().winCheck();
         }
     }
 }
