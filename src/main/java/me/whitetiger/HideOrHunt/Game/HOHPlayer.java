@@ -21,7 +21,7 @@ public class HOHPlayer {
     public HOHPlayer(Player p, Block anchor) {
         this.bukkitPlayer = p;
         this.anchor = anchor;
-        this.teamAlive = false;
+        this.teamAlive = true;
     }
 
     public void setTeamAlive(Boolean teamAlive) {

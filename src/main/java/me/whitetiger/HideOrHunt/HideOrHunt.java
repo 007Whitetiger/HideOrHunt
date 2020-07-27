@@ -8,12 +8,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class HideOrHunt extends JavaPlugin {
 
-    public GameManager manager = new GameManager();
+    public GameManager manager;
     public static HideOrHunt INSTANCE;
 
     @Override
     public void onEnable() {
         INSTANCE = this;
+        this.manager = new GameManager();
         registerEvents();
         new CommandHandler(this);
     }

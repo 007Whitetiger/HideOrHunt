@@ -51,6 +51,7 @@ public class DeathListener implements Listener {
                 e.setDeathSound(Sound.ENTITY_ENDER_DRAGON_GROWL);
                 e.setDeathSoundVolume(100);
             }
+            plugin.getManager().winCheck();
         }
     }
 }
