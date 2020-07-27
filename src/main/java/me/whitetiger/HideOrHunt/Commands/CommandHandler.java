@@ -35,6 +35,9 @@ public class CommandHandler implements CommandExecutor {
             case "remove":
                 remove(sender, args);
                 break;
+            case "kill":
+                kill(sender, args);
+                break;
             default:
                 sender.sendMessage("Not DONE");
                 break;
@@ -47,6 +50,13 @@ public class CommandHandler implements CommandExecutor {
             StopCommands.remove((Player) sender);
         } else {
             StopCommands.remove(Bukkit.getPlayer(args[1]));
+        }
+    }
+    public void kill(CommandSender sender, String[] args) {
+        if (args.length == 1) {
+            StopCommands.kill((Player) sender);
+        } else {
+            StopCommands.kill(Bukkit.getPlayer(args[1]));
         }
     }
 }

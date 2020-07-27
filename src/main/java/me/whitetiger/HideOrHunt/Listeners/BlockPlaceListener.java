@@ -8,7 +8,6 @@ package me.whitetiger.HideOrHunt.Listeners;
 import me.whitetiger.HideOrHunt.Constants;
 import me.whitetiger.HideOrHunt.Game.HOHPlayer;
 import me.whitetiger.HideOrHunt.HideOrHunt;
-import me.whitetiger.HideOrHunt.Utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

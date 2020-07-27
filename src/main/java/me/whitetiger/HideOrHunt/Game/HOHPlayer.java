@@ -48,9 +48,13 @@ public class HOHPlayer {
         return teamNumber;
     }
 
-    public void kill(Player attacker) {
+    public Boolean isFinal() {
+        return !this.teamAlive;
+    }
+
+    public void kill(String name) {
         this.teamAlive = false;
-        bukkitPlayer.sendTitle(Utils.chat("&6You DIED"), "You were killed by " + attacker.getName());
+        bukkitPlayer.sendTitle(Utils.chat("&6You DIED"), "You were killed by " + name);
     }
     public void finalKill() {
         GameManager gameManager = HideOrHunt.INSTANCE.getManager();
