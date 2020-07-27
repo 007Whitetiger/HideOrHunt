@@ -8,6 +8,8 @@ package me.whitetiger.HideOrHunt.Listeners;
 import me.whitetiger.HideOrHunt.Game.HOHPlayer;
 import me.whitetiger.HideOrHunt.HideOrHunt;
 import org.bukkit.Bukkit;
+import org.bukkit.block.Block;
+import org.bukkit.block.data.type.RespawnAnchor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,7 +28,11 @@ public class DeathListener implements Listener {
         Player p = e.getEntity();
         HOHPlayer hohPlayer = plugin.getManager().getPlayer(p);
         if (!(hohPlayer == null)) {
-
+            Block anchor = hohPlayer.getAnchor();
+            RespawnAnchor anchorData = (RespawnAnchor) anchor.getBlockData();
+            if (anchorData.getCharges() == 1) {
+                hohPlayer.finalKill();
+            }
         }
     }
 }

@@ -6,11 +6,14 @@ Please create your own code or ask me for permission at the email above
 package me.whitetiger.HideOrHunt.Listeners;
 
 import me.whitetiger.HideOrHunt.Constants;
+import me.whitetiger.HideOrHunt.Game.HOHPlayer;
 import me.whitetiger.HideOrHunt.HideOrHunt;
 import me.whitetiger.HideOrHunt.Utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.block.data.type.RespawnAnchor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,16 +29,21 @@ public class BlockPlaceListener implements Listener {
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent e) {
         Player p = e.getPlayer();
-        if (plugin.getManager().inGame(p)) {
-            e.setCancelled(true);
-            p.sendMessage(Constants.alreadyPlaced);
-            return;
-        }
+
 
         if (e.getBlock().getType().equals(Material.RESPAWN_ANCHOR)) {
-            plugin.manager.addPlayer(p, e.getBlock());
-            p.setDisplayName(ChatColor.GOLD + "Team " + ChatColor.DARK_AQUA + plugin.manager.teamAmount() + " " + ChatColor.RESET + p.getDisplayName());
-            p.sendMessage(p.getDisplayName() + " Team added!");
+            if (!(p.getWorld().getEnvironment() == World.Environment.NETHER)) return;
+            if (plugin.getManager().inGame(p)) {
+                e.setCancelled(true);
+                p.sendMessage(Constants.alreadyPlaced);
+            } else {
+                HOHPlayer hohPlayer = plugin.manager.addPlayer(p, e.getBlock());
+                RespawnAnchor anchor = (RespawnAnchor) e.getBlock().getBlockData();
+                anchor.setCharges(2);
+                e.getBlock().setBlockData(anchor);
+                p.setPlayerListName(ChatColor.GOLD + "Team " + ChatColor.RESET + hohPlayer.getTeamNumber() + " " + ChatColor.RESET + p.getDisplayName());
+                p.sendMessage(p.getDisplayName() + " Team added!");
+            }
         }
     }
 }

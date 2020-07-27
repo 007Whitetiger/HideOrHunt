@@ -14,6 +14,7 @@ import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
@@ -28,22 +29,38 @@ public class BlockBreakListener implements Listener {
     }
 
     @EventHandler
-    public void onInteractEvent(BlockDamageEvent e) {
+    public void onDamage(BlockDamageEvent e) {
 
         if (!Objects.requireNonNull(e.getBlock()).getType().equals(Material.RESPAWN_ANCHOR)) return;
-        if (!e.getPlayer().getInventory().getItemInMainHand().toString().toLowerCase().contains("pickaxe")) return;
-
 
         HOHPlayer hohPlayer = plugin.getManager().getByAnchorLocation(e.getBlock());
+        if (hohPlayer == null) return;
+
         if (hohPlayer.getBukkitPlayer().equals(e.getPlayer())) {
-            Title title = new Title(Utils.chat("&cDon't!"), Utils.chat("&cYou can't break your own anchor!"));
+            Title title = new Title(Utils.chat("&cDon't!"), Utils.chat("&cYou can't break your own anchor!"), 0, 7, 1);
             e.getPlayer().sendTitle(title);
+            e.setCancelled(true);
             return;
         }
-        if (!(hohPlayer == null)) {
-            e.setInstaBreak(true);
-            hohPlayer.kill(e.getPlayer());
-        }
 
+        if (!e.getPlayer().getInventory().getItemInMainHand().toString().toLowerCase().contains("pickaxe")) return;
+
+        e.setInstaBreak(true);
+        hohPlayer.kill(e.getPlayer());
+
+
+    }
+    @EventHandler
+    public void onBreak(BlockBreakEvent e) {
+        if (!Objects.requireNonNull(e.getBlock()).getType().equals(Material.RESPAWN_ANCHOR)) return;
+
+        HOHPlayer hohPlayer = plugin.getManager().getByAnchorLocation(e.getBlock());
+        if (hohPlayer == null) return;
+
+        if (hohPlayer.getBukkitPlayer().equals(e.getPlayer())) {
+            Title title = new Title(Utils.chat("&cDon't!"), Utils.chat("&cYou can't break your own anchor!"), 0, 40, 10);
+            e.getPlayer().sendTitle(title);
+            e.setCancelled(true);
+        }
     }
 }

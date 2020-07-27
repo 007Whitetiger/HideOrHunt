@@ -6,6 +6,7 @@ Please create your own code or ask me for permission at the email above
 package me.whitetiger.HideOrHunt.Game;
 
 import me.whitetiger.HideOrHunt.GameState;
+import org.bukkit.Material;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.block.Block;
@@ -23,6 +24,14 @@ public class GameManager {
 
     public HashMap<Player, HOHPlayer> getPlayers() {
         return players;
+    }
+
+    public void  removePlayer(Player p) {
+        p.setPlayerListName(p.getDisplayName());
+        HOHPlayer hohPlayer = getPlayer(p);
+        Block anchor = hohPlayer.getAnchor();
+        anchor.setType(Material.AIR);
+        players.remove(p);
     }
 
     public GameState getGameState() {
@@ -45,9 +54,10 @@ public class GameManager {
     }
 
 
-    public void addPlayer(Player p, Block anchor) {
+    public HOHPlayer addPlayer(Player p, Block anchor) {
         HOHPlayer hohPlayer = new HOHPlayer(p, anchor);
         this.players.put(p, hohPlayer);
+        return hohPlayer;
     }
 
     public Boolean inGame(Player p) {

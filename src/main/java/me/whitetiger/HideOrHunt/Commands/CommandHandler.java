@@ -6,11 +6,13 @@ Please create your own code or ask me for permission at the email above
 package me.whitetiger.HideOrHunt.Commands;
 
 import me.whitetiger.HideOrHunt.Commands.Executors.Freeze;
+import me.whitetiger.HideOrHunt.Commands.Executors.StopCommands;
 import me.whitetiger.HideOrHunt.HideOrHunt;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.Objects;
 
@@ -30,10 +32,21 @@ public class CommandHandler implements CommandExecutor {
             case "continue":
                 Freeze.unFreeze(sender);
                 break;
+            case "remove":
+                remove(sender, args);
+                break;
             default:
                 sender.sendMessage("Not DONE");
                 break;
         }
         return true;
+    }
+
+    public void remove(CommandSender sender, String[] args) {
+        if (args.length == 1) {
+            StopCommands.remove((Player) sender);
+        } else {
+            StopCommands.remove(Bukkit.getPlayer(args[1]));
+        }
     }
 }
