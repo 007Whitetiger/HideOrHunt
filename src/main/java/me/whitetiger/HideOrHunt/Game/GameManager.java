@@ -32,20 +32,28 @@ public class GameManager {
         return players;
     }
 
-    public void removePlayer(Player p) {
-        p.setPlayerListName(p.getDisplayName());
-        HOHPlayer hohPlayer = getPlayer(p);
-        Block anchor = hohPlayer.getAnchor();
-        anchor.setType(Material.AIR);
-        players.remove(p);
+    public Boolean getWinnable() {
+        return isWinnable;
     }
 
     public GameState getGameState() {
         return gameState;
     }
 
+    public int teamAmount() {
+        return players.size();
+    }
+
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
+    }
+
+    public void setPlayers(HashMap<Player, HOHPlayer> players) {
+        this.players = players;
+    }
+
+    public void setWinnable(Boolean winnable) {
+        isWinnable = winnable;
     }
 
     public void winCheck() {
@@ -68,8 +76,13 @@ public class GameManager {
         return null;
     }
 
-    public int teamAmount() {
-        return players.size();
+    public HOHPlayer getByAnchorLocation(Block anchor) {
+        for (HOHPlayer player : players.values()) {
+            if (anchor.getLocation().getX() == player.getAnchorLocation().getX() & anchor.getLocation().getY() == player.getAnchorLocation().getY() & anchor.getLocation().getZ() == player.getAnchorLocation().getZ()) {
+                return player;
+            }
+        }
+        return null;
     }
 
 
@@ -82,17 +95,16 @@ public class GameManager {
         return hohPlayer;
     }
 
-    public Boolean inGame(Player p) {
-        return players.containsKey(p);
+    public void removePlayer(Player p) {
+        p.setPlayerListName(p.getDisplayName());
+        HOHPlayer hohPlayer = getPlayer(p);
+        Block anchor = hohPlayer.getAnchor();
+        anchor.setType(Material.AIR);
+        players.remove(p);
     }
 
-    public HOHPlayer getByAnchorLocation(Block anchor) {
-        for (HOHPlayer player : players.values()) {
-            if (anchor.getLocation().getX() == player.getAnchorLocation().getX() & anchor.getLocation().getY() == player.getAnchorLocation().getY() & anchor.getLocation().getZ() == player.getAnchorLocation().getZ()) {
-                return player;
-            }
-        }
-        return null;
+    public Boolean inGame(Player p) {
+        return players.containsKey(p);
     }
 
 }

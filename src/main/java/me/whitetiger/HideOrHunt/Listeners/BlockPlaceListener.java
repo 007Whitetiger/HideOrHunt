@@ -12,11 +12,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.type.RespawnAnchor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 
 public class BlockPlaceListener implements Listener {
     public HideOrHunt plugin;
@@ -40,6 +43,7 @@ public class BlockPlaceListener implements Listener {
                 RespawnAnchor anchor = (RespawnAnchor) e.getBlock().getBlockData();
                 anchor.setCharges(2);
                 e.getBlock().setBlockData(anchor);
+                new PlayerInteractEvent(p, Action.RIGHT_CLICK_BLOCK, null, e.getBlock(), BlockFace.NORTH_NORTH_EAST);
                 p.setPlayerListName(ChatColor.GOLD + "Team " + ChatColor.RESET + hohPlayer.getTeamNumber() + " " + ChatColor.RESET + p.getDisplayName());
                 p.sendMessage(p.getDisplayName() + " Team added!");
             }

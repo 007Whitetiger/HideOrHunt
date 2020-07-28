@@ -11,21 +11,41 @@ import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
+import java.util.UUID;
+
 public class HOHPlayer {
 
     public Player bukkitPlayer;
     public Block anchor;
     public Boolean teamAlive;
     public int teamNumber = HideOrHunt.INSTANCE.getGameManager().teamAmount() + 1;
+    public UUID id;
 
     public HOHPlayer(Player p, Block anchor) {
         this.bukkitPlayer = p;
         this.anchor = anchor;
         this.teamAlive = true;
+        this.id = UUID.randomUUID();
     }
 
     public void setTeamAlive(Boolean teamAlive) {
         this.teamAlive = teamAlive;
+    }
+
+    public void setTeamNumber(int teamNumber) {
+        this.teamNumber = teamNumber;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public void setAnchor(Block anchor) {
+        this.anchor = anchor;
+    }
+
+    public void setBukkitPlayer(Player bukkitPlayer) {
+        this.bukkitPlayer = bukkitPlayer;
     }
 
     public Boolean getTeamAlive() {
@@ -50,6 +70,10 @@ public class HOHPlayer {
 
     public Boolean isFinal() {
         return !this.teamAlive;
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public void kill(String name) {
