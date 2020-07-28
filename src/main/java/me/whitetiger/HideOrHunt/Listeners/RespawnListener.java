@@ -9,7 +9,7 @@ import me.whitetiger.HideOrHunt.Constants;
 import me.whitetiger.HideOrHunt.Game.GameManager;
 import me.whitetiger.HideOrHunt.Game.HOHPlayer;
 import me.whitetiger.HideOrHunt.HideOrHunt;
-import me.whitetiger.HideOrHunt.Utils.Utils;
+import me.whitetiger.HideOrHunt.Utils.ChatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.type.RespawnAnchor;
@@ -41,7 +41,7 @@ public class RespawnListener implements Listener {
                 RespawnAnchor anchorData = (RespawnAnchor) anchor.getBlockData();
                 anchorData.setCharges(anchorData.getCharges() - 1);
                 anchor.setBlockData(anchorData);
-                p.sendMessage(Utils.chat(Constants.prefix + "&cPlease click the respawn anchor!"));
+                p.sendMessage(ChatUtils.chat(Constants.prefix + "&cPlease click the respawn anchor!"));
             }
         }
     }

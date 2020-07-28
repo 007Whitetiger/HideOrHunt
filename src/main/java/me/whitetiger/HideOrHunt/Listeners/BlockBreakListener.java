@@ -6,9 +6,11 @@ Please create your own code or ask me for permission at the email above
 package me.whitetiger.HideOrHunt.Listeners;
 
 import com.destroystokyo.paper.Title;
+import me.whitetiger.HideOrHunt.Game.GameManager;
 import me.whitetiger.HideOrHunt.Game.HOHPlayer;
+import me.whitetiger.HideOrHunt.GameState;
 import me.whitetiger.HideOrHunt.HideOrHunt;
-import me.whitetiger.HideOrHunt.Utils.Utils;
+import me.whitetiger.HideOrHunt.Utils.ChatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -20,9 +22,11 @@ import java.util.Objects;
 
 public class BlockBreakListener implements Listener {
     public HideOrHunt plugin;
+    public GameManager gameManager;
 
     public BlockBreakListener(HideOrHunt plugin) {
         this.plugin = plugin;
+        this.gameManager = plugin.getGameManager();
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 
@@ -31,11 +35,11 @@ public class BlockBreakListener implements Listener {
 
         if (!Objects.requireNonNull(e.getBlock()).getType().equals(Material.RESPAWN_ANCHOR)) return;
 
-        HOHPlayer hohPlayer = plugin.getGameManager().getByAnchorLocation(e.getBlock());
+        HOHPlayer hohPlayer = gameManager.getByAnchorLocation(e.getBlock());
         if (hohPlayer == null) return;
 
         if (hohPlayer.getBukkitPlayer().equals(e.getPlayer())) {
-            Title title = new Title(Utils.chat("&cDon't!"), Utils.chat("&cYou can't break your own anchor!"), 0, 7, 1);
+            Title title = new Title(ChatUtils.chat("&cDon't!"), ChatUtils.chat("&cYou can't break your own anchor!"), 0, 7, 1);
             e.getPlayer().sendTitle(title);
             e.setCancelled(true);
             return;
@@ -50,13 +54,14 @@ public class BlockBreakListener implements Listener {
     }
     @EventHandler
     public void onBreak(BlockBreakEvent e) {
+        if (gameManager.waiting()) return;
         if (!Objects.requireNonNull(e.getBlock()).getType().equals(Material.RESPAWN_ANCHOR)) return;
 
-        HOHPlayer hohPlayer = plugin.getGameManager().getByAnchorLocation(e.getBlock());
+        HOHPlayer hohPlayer = gameManager.getByAnchorLocation(e.getBlock());
         if (hohPlayer == null) return;
 
         if (hohPlayer.getBukkitPlayer().equals(e.getPlayer())) {
-            Title title = new Title(Utils.chat("&cDon't!"), Utils.chat("&cYou can't break your own anchor!"), 0, 40, 10);
+            Title title = new Title(ChatUtils.chat("&cDon't!"), ChatUtils.chat("&cYou can't break your own anchor!"), 0, 40, 10);
             e.getPlayer().sendTitle(title);
             e.setCancelled(true);
         }

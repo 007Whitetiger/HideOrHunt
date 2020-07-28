@@ -4,15 +4,15 @@ This file and all other files associated with this file are owned by me (Stijn T
 Please create your own code or ask me for permission at the email above
 --------------------------------------------------------------------------------------------------------------------- */
 
-import me.whitetiger.HideOrHunt.Utils.Utils;
+import me.whitetiger.HideOrHunt.Utils.ChatUtils;
 
 public class Constants {
-    public static String prefix = Utils.chat("&b[&6HOH&b] &f");
+    public static String prefix = ChatUtils.chat("&b[&6HOH&b] &f");
 
     /* permissions */
     public static String adminPerms = "hideorhunt.admin";
     public static String normalPerms = "hideorhunt.player";
 
     /* BlockPlaceListener messages */
-    public static String alreadyPlaced = Utils.chat(prefix + " &cYou already placed an anchor!");
+    public static String alreadyPlaced = ChatUtils.chat(prefix + " &cYou already placed an anchor!");
 }

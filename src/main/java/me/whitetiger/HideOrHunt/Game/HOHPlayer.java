@@ -6,7 +6,7 @@ Please create your own code or ask me for permission at the email above
 package me.whitetiger.HideOrHunt.Game;
 
 import me.whitetiger.HideOrHunt.HideOrHunt;
-import me.whitetiger.HideOrHunt.Utils.Utils;
+import me.whitetiger.HideOrHunt.Utils.ChatUtils;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -78,7 +78,7 @@ public class HOHPlayer {
 
     public void kill(String name) {
         this.teamAlive = false;
-        bukkitPlayer.sendTitle(Utils.chat("&6You DIED"), "You were killed by " + name);
+        bukkitPlayer.sendTitle(ChatUtils.chat("&6You DIED"), "You were killed by " + name);
     }
     public void finalKill() {
         GameManager gameManager = HideOrHunt.INSTANCE.getGameManager();

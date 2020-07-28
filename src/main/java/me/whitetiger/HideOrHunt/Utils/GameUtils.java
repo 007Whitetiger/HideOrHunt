@@ -5,10 +5,6 @@ Please create your own code or ask me for permission at the email above
 --------------------------------------------------------------------------------------------------------------------- */
 package me.whitetiger.HideOrHunt.Utils;
 
-import org.bukkit.ChatColor;
-
-public class Utils {
-    public static String chat(String s) {
-        return ChatColor.translateAlternateColorCodes('&', s);
-    }
+public class GameUtils {
+    // there was something in here
 }

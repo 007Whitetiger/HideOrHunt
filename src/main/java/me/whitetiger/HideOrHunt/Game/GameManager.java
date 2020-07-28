@@ -9,9 +9,8 @@ import com.destroystokyo.paper.Title;
 import me.whitetiger.HideOrHunt.Constants;
 import me.whitetiger.HideOrHunt.GameState;
 import me.whitetiger.HideOrHunt.HideOrHunt;
-import me.whitetiger.HideOrHunt.Utils.Utils;
+import me.whitetiger.HideOrHunt.Utils.ChatUtils;
 import org.bukkit.Material;
-import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.block.Block;
 
@@ -22,10 +21,9 @@ public class GameManager {
     public HashMap<Player, HOHPlayer> players = new HashMap<>();
     public GameState gameState;
     public HideOrHunt plugin = HideOrHunt.INSTANCE;
-    private Boolean isWinnable = false;
 
     public GameManager() {
-        this.gameState = GameState.ACTIVE;
+        this.gameState = GameState.WAITING;
     }
 
     public HashMap<Player, HOHPlayer> getPlayers() {
@@ -33,7 +31,7 @@ public class GameManager {
     }
 
     public Boolean getWinnable() {
-        return isWinnable;
+        return gameState != GameState.WAITING;
     }
 
     public GameState getGameState() {
@@ -52,20 +50,15 @@ public class GameManager {
         this.players = players;
     }
 
-    public void setWinnable(Boolean winnable) {
-        isWinnable = winnable;
-    }
 
     public void winCheck() {
         System.out.println(players.size());
-        if (players.size() == 1 & isWinnable) {
+        if (players.size() == 1 & this.gameState != GameState.WAITING) {
             Player winner = (Player) players.keySet().toArray()[0];
             HOHPlayer hohWinner = players.get(winner);
-            plugin.getServer().broadcastMessage(Utils.chat(Constants.prefix + winner.getDisplayName() + " &6from team &f" + hohWinner.getTeamNumber() + " &6has won!"));
-            Title winnerTitle = new Title(Utils.chat("&6Winner!"), Utils.chat("The game has been won by " + winner.getDisplayName() + " from team " + hohWinner.getTeamNumber()), 20, 100, 20);
-            plugin.getServer().getOnlinePlayers().forEach(player -> {
-                player.sendTitle(winnerTitle);
-            });
+            plugin.getServer().broadcastMessage(ChatUtils.chat(Constants.prefix + winner.getDisplayName() + " &6from team &f" + hohWinner.getTeamNumber() + " &6has won!"));
+            Title winnerTitle = new Title(ChatUtils.chat("&6Winner!"), ChatUtils.chat("The game has been won by " + winner.getDisplayName() + " from team " + hohWinner.getTeamNumber()), 20, 100, 20);
+            plugin.getServer().getOnlinePlayers().forEach(player -> player.sendTitle(winnerTitle));
         }
     }
 
@@ -85,12 +78,16 @@ public class GameManager {
         return null;
     }
 
+    public void normalPlayer(Player p, HOHPlayer hohPlayer) {
+        this.players.put(p, hohPlayer);
+    }
+
 
     public HOHPlayer addPlayer(Player p, Block anchor) {
         HOHPlayer hohPlayer = new HOHPlayer(p, anchor);
         this.players.put(p, hohPlayer);
         if (players.size() == 2) {
-            this.isWinnable = true;
+            this.setGameState(GameState.ACTIVE);
         }
         return hohPlayer;
     }
@@ -105,6 +102,10 @@ public class GameManager {
 
     public Boolean inGame(Player p) {
         return players.containsKey(p);
+    }
+
+    public Boolean waiting() {
+        return this.getGameState() == GameState.WAITING;
     }
 
 }

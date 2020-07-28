@@ -7,7 +7,7 @@ package me.whitetiger.HideOrHunt.Listeners;
 
 import me.whitetiger.HideOrHunt.Game.HOHPlayer;
 import me.whitetiger.HideOrHunt.HideOrHunt;
-import me.whitetiger.HideOrHunt.Utils.Utils;
+import me.whitetiger.HideOrHunt.Utils.ChatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
@@ -27,9 +27,9 @@ public class ChatListener implements Listener {
     public void onChatMessage(AsyncPlayerChatEvent e) {
         HOHPlayer hohPlayer = plugin.getGameManager().getPlayer(e.getPlayer());
         if (!(hohPlayer == null)) {
-            e.setFormat(Utils.chat("&6Team &f") + hohPlayer.getTeamNumber() + " " + e.getPlayer().getDisplayName() + ChatColor.RESET + ": " + Utils.chat(e.getMessage()));
+            e.setFormat(ChatUtils.chat("&6Team &f") + hohPlayer.getTeamNumber() + " " + e.getPlayer().getDisplayName() + ChatColor.RESET + ": " + ChatUtils.chat(e.getMessage()));
         } else {
-            e.setFormat(e.getPlayer().getDisplayName() + ChatColor.RESET + ": " + Utils.chat(e.getMessage()));
+            e.setFormat(e.getPlayer().getDisplayName() + ChatColor.RESET + ": " + ChatUtils.chat(e.getMessage()));
         }
     }
 }
