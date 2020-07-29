@@ -1,17 +1,14 @@
 package me.whitetiger.HideOrHunt;
 
-import me.whitetiger.HideOrHunt.Game.GameManager;
-import me.whitetiger.HideOrHunt.Game.HOHPlayer;
+import me.whitetiger.HideOrHunt.Game.*;
 import me.whitetiger.HideOrHunt.Listeners.*;
+import me.whitetiger.HideOrHunt.Utils.GameUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.block.Block;
-import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -19,11 +16,14 @@ public final class HideOrHunt extends JavaPlugin {
 
     public GameManager manager;
     public static HideOrHunt INSTANCE;
+    public Configuration configuration;
 
     @Override
     public void onEnable() {
         INSTANCE = this;
         this.saveDefaultConfig();
+        this.configuration = new Configuration(this);
+
         if (this.getConfig().getBoolean("Save")) {
             loadGameManager();
         } else {
@@ -51,6 +51,18 @@ public final class HideOrHunt extends JavaPlugin {
         return manager;
     }
 
+    /* gametype */
+    public GameType getGameType() {
+        try {
+            return GameType.valueOf(Objects.requireNonNull(this.getConfig().getString("type")).toUpperCase());
+        } catch (IllegalArgumentException | NullPointerException e) {
+            GameUtils.typeWarn();
+            return null;
+        }
+    }
+
+
+    /* save/load section */
     public void saveGameManager() {
         this.getConfig().set("SaveData", null);
         this.saveConfig();

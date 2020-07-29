@@ -5,7 +5,6 @@ Please create your own code or ask me for permission at the email above
 --------------------------------------------------------------------------------------------------------------------- */
 package me.whitetiger.HideOrHunt.Utils;
 
-import me.whitetiger.HideOrHunt.GameState;
 import org.bukkit.ChatColor;
 
 public class ChatUtils {

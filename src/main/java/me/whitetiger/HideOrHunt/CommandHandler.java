@@ -50,6 +50,9 @@ public class CommandHandler implements CommandExecutor {
             case "restart":
                 startCommands.restart(sender);
                 break;
+            case "setup":
+                startCommands.setup(sender);
+                break;
             default:
                 sender.sendMessage("Not DONE");
                 break;

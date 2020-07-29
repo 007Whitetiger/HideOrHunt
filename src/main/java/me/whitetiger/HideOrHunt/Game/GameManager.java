@@ -7,25 +7,30 @@ package me.whitetiger.HideOrHunt.Game;
 
 import com.destroystokyo.paper.Title;
 import me.whitetiger.HideOrHunt.Constants;
-import me.whitetiger.HideOrHunt.GameState;
 import me.whitetiger.HideOrHunt.HideOrHunt;
 import me.whitetiger.HideOrHunt.Utils.ChatUtils;
+import me.whitetiger.HideOrHunt.Utils.GameUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.block.Block;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
 
 public class GameManager {
 
     public HashMap<Player, HOHPlayer> players = new HashMap<>();
     public GameState gameState;
     public HideOrHunt plugin = HideOrHunt.INSTANCE;
+    public GameType gameType;
 
     public GameManager() {
         this.gameState = GameState.WAITING;
+        this.gameType = plugin.getGameType();
     }
 
     public HashMap<Player, HOHPlayer> getPlayers() {
@@ -52,17 +57,46 @@ public class GameManager {
         this.players = players;
     }
 
+    public Material getBlockType() {
+        switch (gameType) {
+            case ANCHOR:
+                return Material.RESPAWN_ANCHOR;
+            case BEACON:
+                return Material.BEACON;
+        }
+        GameUtils.typeWarn();
+        return null;
+    }
+
+    public World.Environment getWorldEnvironment() {
+        switch (gameType) {
+            case ANCHOR:
+                return World.Environment.NETHER;
+            case BEACON:
+                return World.Environment.NORMAL;
+        }
+        GameUtils.typeWarn();
+        return null;
+    }
+
 
     public void winCheck() {
         if (players.size() == 1 & this.gameState != GameState.WAITING) {
+            /* get winner */
             Player winner = (Player) players.keySet().toArray()[0];
             HOHPlayer hohWinner = players.get(winner);
+
+            /* win messages */
             plugin.getServer().broadcastMessage(ChatUtils.chat(Constants.prefix + winner.getDisplayName() + " &6from team &f" + hohWinner.getTeamNumber() + " &6has won!"));
             Title winnerTitle = new Title(ChatUtils.chat("&6Winner!"), ChatUtils.chat("The game has been won by " + winner.getDisplayName() + " from team " + hohWinner.getTeamNumber()), 20, 100, 20);
             plugin.getServer().getOnlinePlayers().forEach(player -> player.sendTitle(winnerTitle));
         }
     }
 
+    /*
+     * gets player
+     * @return HOHPlayer made
+     */
     public HOHPlayer getPlayer(Player p) {
         if (players.containsKey(p)) {
             return players.get(p);
@@ -106,7 +140,7 @@ public class GameManager {
     }
 
     public Boolean waiting(Player player) {
-        return this.getGameState() == GameState.WAITING & this.getPlayer(player) != null;
+        return this.getGameState() == GameState.WAITING & this.getPlayer(player) != null & plugin.configuration.waitingMode;
     }
 
     public void stop() {

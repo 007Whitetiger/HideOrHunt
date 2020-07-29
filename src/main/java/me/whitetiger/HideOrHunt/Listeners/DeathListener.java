@@ -36,11 +36,15 @@ public class DeathListener implements Listener {
         Player p = e.getEntity();
         HOHPlayer hohPlayer = gameManager.getPlayer(p);
         if (!(hohPlayer == null)) {
+
+            /* game waiting */
             if (gameManager.waiting(e.getEntity())) {
                 e.setCancelled(true);
-                e.getEntity().setHealth(e.getEntity().getMaxHealth());
+                p.sendMessage(ChatUtils.chat(Constants.prefix + "&cPlease wait for others to join!"));
+                p.setHealth(p.getMaxHealth());
                 return;
             }
+
             if (!hohPlayer.isFinal()) {
                 Block anchor = hohPlayer.getAnchor();
                 RespawnAnchor anchorData = (RespawnAnchor) anchor.getBlockData();

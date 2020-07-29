@@ -1,4 +1,4 @@
-package me.whitetiger.HideOrHunt;
+package me.whitetiger.HideOrHunt.Game;
 
 public enum GameState {
     WAITING("WAITING"),

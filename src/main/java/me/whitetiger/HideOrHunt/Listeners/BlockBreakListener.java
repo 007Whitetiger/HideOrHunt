@@ -6,9 +6,9 @@ Please create your own code or ask me for permission at the email above
 package me.whitetiger.HideOrHunt.Listeners;
 
 import com.destroystokyo.paper.Title;
+import me.whitetiger.HideOrHunt.Constants;
 import me.whitetiger.HideOrHunt.Game.GameManager;
 import me.whitetiger.HideOrHunt.Game.HOHPlayer;
-import me.whitetiger.HideOrHunt.GameState;
 import me.whitetiger.HideOrHunt.HideOrHunt;
 import me.whitetiger.HideOrHunt.Utils.ChatUtils;
 import org.bukkit.Bukkit;
@@ -34,17 +34,11 @@ public class BlockBreakListener implements Listener {
     public void onDamage(BlockDamageEvent e) {
 
         /* is respawn anchor */
-        if (!Objects.requireNonNull(e.getBlock()).getType().equals(Material.RESPAWN_ANCHOR)) return;
+        if (!Objects.requireNonNull(e.getBlock()).getType().equals(gameManager.getBlockType())) return;
 
         /* get HOHPlayer */
         HOHPlayer hohPlayer = gameManager.getByAnchorLocation(e.getBlock());
         if (hohPlayer == null) return;
-
-        /* game waiting */
-        if (gameManager.waiting(e.getPlayer())) {
-            e.setCancelled(true);
-            return;
-        }
 
         /* own anchor check */
         if (hohPlayer.getBukkitPlayer().equals(e.getPlayer())) {
@@ -66,18 +60,15 @@ public class BlockBreakListener implements Listener {
     @EventHandler
     public void onBreak(BlockBreakEvent e) {
 
-        /* game waiting */
-        if (gameManager.waiting(e.getPlayer())) {
-            e.setCancelled(true);
-            return;
-        }
+
 
         /* is respawn anchor */
-        if (!Objects.requireNonNull(e.getBlock()).getType().equals(Material.RESPAWN_ANCHOR)) return;
+        if (!Objects.requireNonNull(e.getBlock()).getType().equals(gameManager.getBlockType())) return;
 
         /* get HOHPlayer */
         HOHPlayer hohPlayer = gameManager.getByAnchorLocation(e.getBlock());
         if (hohPlayer == null) return;
+
 
         /* own anchor check */
         if (hohPlayer.getBukkitPlayer().equals(e.getPlayer())) {

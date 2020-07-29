@@ -15,7 +15,6 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class StartCommands {
     public HideOrHunt plugin = HideOrHunt.INSTANCE;
@@ -38,7 +37,7 @@ public class StartCommands {
     public void setup(CommandSender sender) {
         World finalWorld = null;
         for (World world : plugin.getServer().getWorlds()) {
-            if (world.getEnvironment() == World.Environment.NETHER) finalWorld = world;
+            if (world.getEnvironment() == gameManager.getWorldEnvironment()) finalWorld = world;
         }
         if (finalWorld == null) {
             sender.sendMessage(ChatUtils.chat(Constants.prefix + "&cThere is no nether world in your server!"));
