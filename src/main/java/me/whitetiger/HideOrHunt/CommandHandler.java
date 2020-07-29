@@ -6,6 +6,7 @@ Please create your own code or ask me for permission at the email above
 package me.whitetiger.HideOrHunt;
 
 import me.whitetiger.HideOrHunt.Commands.Freeze;
+import me.whitetiger.HideOrHunt.Commands.StartCommands;
 import me.whitetiger.HideOrHunt.Commands.StopCommands;
 import me.whitetiger.HideOrHunt.HideOrHunt;
 import org.bukkit.Bukkit;
@@ -18,25 +19,36 @@ import java.util.Objects;
 
 public class CommandHandler implements CommandExecutor {
     public HideOrHunt plugin;
+    public StopCommands stopCommands;
+    public StartCommands startCommands;
+    public Freeze pauseCommands;
 
     public CommandHandler(HideOrHunt plugin) {
         this.plugin = plugin;
+        this.stopCommands = new StopCommands();
+        this.startCommands = new StartCommands();
+        this.pauseCommands = new Freeze();
         Objects.requireNonNull(plugin.getCommand("hideorhunt")).setExecutor(this);
     }
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         switch (args[0].toLowerCase()) {
             case "pause":
-                Freeze.freeze(sender);
+            case "freeze":
+                pauseCommands.freeze(sender);
                 break;
             case "continue":
-                Freeze.unFreeze(sender);
+            case "unfreeze":
+                pauseCommands.unFreeze(sender);
                 break;
             case "remove":
                 remove(sender, args);
                 break;
             case "kill":
                 kill(sender, args);
+                break;
+            case "restart":
+                startCommands.restart(sender);
                 break;
             default:
                 sender.sendMessage("Not DONE");
@@ -47,16 +59,16 @@ public class CommandHandler implements CommandExecutor {
 
     public void remove(CommandSender sender, String[] args) {
         if (args.length == 1) {
-            StopCommands.remove((Player) sender);
+            stopCommands.remove((Player) sender);
         } else {
-            StopCommands.remove(Bukkit.getPlayer(args[1]));
+            stopCommands.remove(Bukkit.getPlayer(args[1]));
         }
     }
     public void kill(CommandSender sender, String[] args) {
         if (args.length == 1) {
-            StopCommands.kill((Player) sender);
+            stopCommands.kill((Player) sender);
         } else {
-            StopCommands.kill(Bukkit.getPlayer(args[1]));
+            stopCommands.kill(Bukkit.getPlayer(args[1]));
         }
     }
 }

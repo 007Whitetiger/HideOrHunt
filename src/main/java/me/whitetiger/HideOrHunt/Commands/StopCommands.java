@@ -14,15 +14,14 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 public class StopCommands {
-    public static HideOrHunt plugin = HideOrHunt.INSTANCE;
+    public HideOrHunt plugin = HideOrHunt.INSTANCE;
+    public GameManager gameManager = plugin.getGameManager();
 
-    public static void remove(Player p) {
-        GameManager gameManager = plugin.getGameManager();
+    public void remove(Player p) {
         gameManager.removePlayer(p);
         p.sendMessage(ChatUtils.chat(Constants.prefix + "&aYou have been removed of the game!"));
     }
-    public static void kill(Player p) {
-        GameManager gameManager = plugin.getGameManager();
+    public void kill(Player p) {
         HOHPlayer hohPlayer = gameManager.getPlayer(p);
         hohPlayer.kill(ChatUtils.chat("&4ADMIN"));
         hohPlayer.getAnchor().setType(Material.AIR);

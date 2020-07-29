@@ -14,7 +14,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.block.Block;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class GameManager {
 
@@ -52,7 +54,6 @@ public class GameManager {
 
 
     public void winCheck() {
-        System.out.println(players.size());
         if (players.size() == 1 & this.gameState != GameState.WAITING) {
             Player winner = (Player) players.keySet().toArray()[0];
             HOHPlayer hohWinner = players.get(winner);
@@ -86,7 +87,7 @@ public class GameManager {
     public HOHPlayer addPlayer(Player p, Block anchor) {
         HOHPlayer hohPlayer = new HOHPlayer(p, anchor);
         this.players.put(p, hohPlayer);
-        if (players.size() == 2) {
+        if (players.size() == 2 & this.gameState == GameState.WAITING) {
             this.setGameState(GameState.ACTIVE);
         }
         return hohPlayer;
@@ -104,8 +105,16 @@ public class GameManager {
         return players.containsKey(p);
     }
 
-    public Boolean waiting() {
-        return this.getGameState() == GameState.WAITING;
+    public Boolean waiting(Player player) {
+        return this.getGameState() == GameState.WAITING & this.getPlayer(player) != null;
+    }
+
+    public void stop() {
+        List<Player> toRemove = new ArrayList();
+        this.players.forEach((player, hohPlayer) -> {
+            toRemove.add(player);
+        });
+        toRemove.forEach(this::removePlayer);
     }
 
 }

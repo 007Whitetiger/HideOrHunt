@@ -36,7 +36,7 @@ public class DeathListener implements Listener {
         Player p = e.getEntity();
         HOHPlayer hohPlayer = gameManager.getPlayer(p);
         if (!(hohPlayer == null)) {
-            if (gameManager.waiting()) {
+            if (gameManager.waiting(e.getEntity())) {
                 e.setCancelled(true);
                 e.getEntity().setHealth(e.getEntity().getMaxHealth());
                 return;

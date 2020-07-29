@@ -12,14 +12,14 @@ import me.whitetiger.HideOrHunt.Utils.ChatUtils;
 import org.bukkit.command.CommandSender;
 
 public class Freeze {
-    public static void freeze(CommandSender sender) {
+    public void freeze(CommandSender sender) {
         if (sender.hasPermission(Constants.adminPerms)) {
             HideOrHunt plugin = HideOrHunt.INSTANCE;
             plugin.getGameManager().setGameState(GameState.PAUSED);
             plugin.getServer().broadcastMessage(ChatUtils.chat(Constants.prefix + "The game has been paused!"));
         }
     }
-    public static void unFreeze(CommandSender sender) {
+    public void unFreeze(CommandSender sender) {
         if (sender.hasPermission(Constants.adminPerms)) {
             HideOrHunt plugin = HideOrHunt.INSTANCE;
             plugin.getGameManager().setGameState(GameState.ACTIVE);
